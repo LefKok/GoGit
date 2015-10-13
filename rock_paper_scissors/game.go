@@ -1,9 +1,9 @@
 package main
 
 import (
-	"math/rand"
-	"fmt"
 	"bufio"
+	"fmt"
+	"math/rand"
 	"os"
 )
 
@@ -19,9 +19,9 @@ func main() {
 	for {
 		fmt.Print("Chose either (r)ock, (p)aper or (s)cissors: ")
 		input, _ := reader.ReadString('\n')
-		if human := Convert(input); human >= 0{
+		if human := Convert(input); human >= 0 {
 			computer := rand.Intn(3)
-			switch Wins(human, computer){
+			switch Wins(human, computer) {
 			case -1:
 				fmt.Println("Sorry, the computer wins")
 			case 0:
@@ -39,7 +39,18 @@ func main() {
 // * s - SCISSORS
 // * p - PAPER
 // Return -1 for non-valid string
-func Convert(s string) int{
+func Convert(s string) int {
+
+	if s == "r" || s == "R" {
+		return 0
+	}
+	if s == "s" || s == "S" {
+		return 1
+	}
+	if s == "p" || s == "P" {
+		return 2
+	}
+
 	return -1
 }
 
@@ -48,6 +59,22 @@ func Convert(s string) int{
 // * 0 for draw
 // * 1 for win of player 1
 // Only valid turns are given in the argument
-func Wins(player1, player2 int) int{
-	return 0
+// 1 over 2 , 2 over 3, 0 over 1
+func Wins(player1, player2 int) int {
+
+	if player1 == 0 && player2 == 1 {
+		return 1
+	}
+	if player1 == 1 && player2 == 2 {
+		return 1
+	}
+	if player1 == 2 && player2 == 0 {
+		return 1
+	}
+
+	if player1 == player2 {
+		return 0
+	}
+
+	return -1
 }
